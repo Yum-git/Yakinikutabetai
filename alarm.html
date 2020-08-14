@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <!--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>-->
+        <script src="jquery-3.4.1.min.js"></script>
+        <script src="jquery-color-master/jquery.color.js"></script>
+        <script src="timedropper-master/timedropper.js"></script>
+        <link rel="stylesheet" type="text/css" href="timedropper-master/timedropper.css">
+        <link rel="stylesheet" type="text/css" href="alarm.css">
+
+        <script>
+            $(function(){
+
+                $('#night').hide();
+                $('#cancel').hide();
+                $('#set_time').hide();
+
+                let flag=true;
+
+                //時刻カウント
+                setInterval(function(){
+                    let now=new Date();
+                    let hours=now.getHours();
+                    hours=('0'+hours).slice(-2);
+                    let minutes=now.getMinutes();
+                    minutes=('0'+minutes).slice(-2);
+                    let seconds=now.getSeconds();
+                    seconds=('0'+seconds).slice(-2);
+                    
+                    if(flag){
+                        $('#time').text(hours+'：'+minutes);
+                        flag=false;
+                    }
+                    else{
+                        $('#time').text(hours+'　'+minutes);
+                        flag=true;
+                    }
+                    //$('#time_sec').text(seconds);
+                },500);
+
+
+                /*$('*').on('touchmove touchend',function(){
+                    $('.test').text($('#alarm').val());
+                })*/
+                $('#alarm_set').timeDropper({
+                    meridians: true,
+                    setCurrentTime: false
+                });
+
+                //アラームセット完了
+                $('#start').on('click',function(){
+                    $('#inn').get(0).play();
+
+                    let set_time=$('#alarm_set').val();
+                    $('#set_time').text(set_time);
+
+                    $('body').animate({
+                        backgroundColor:'#000088'
+                    },3000);
+
+                    $('header').animate({
+                        backgroundColor:'#000033',
+                        color:'#ffffff'
+                    },3000);
+
+                    $('footer').animate({
+                        backgroundColor:'#000033',
+                        color:'#ffffff'
+                    },3000);
+
+                    $('.set_message').animate({
+                        color:'#ffffff'
+                    },3000);
+
+                    $('#noon').fadeOut(1501);
+                    $('#start').fadeOut(1501);
+                    $('#alarm_set').fadeOut(1501);
+                    
+                    setTimeout(function(){
+                        $('#night').fadeIn(1501);
+                        $('#cancel').fadeIn(1501);
+                        $('#set_time').fadeIn(1501);
+                    },1501);
+                });
+
+                //キャンセル
+                $('#cancel').on('click',function(){
+                    $('#chicken').get(0).play();
+
+                    /*let set_time=$('#alarm_set').val();
+                    $('#set_time').text(set_time);*/
+
+                    $('body').animate({
+                        backgroundColor:'#d6eaff'
+                    },3000);
+
+                    $('header').animate({
+                        backgroundColor:'#4aa5ff',
+                        color:'#000000'
+                    },3000);
+
+                    $('footer').animate({
+                        backgroundColor:'#4aa5ff',
+                        color:'#000000'
+                    },3000);
+
+                    $('.set_message').animate({
+                        color:'#000000'
+                    },3000);
+
+                    $('#night').fadeOut(1501);
+                    $('#cancel').fadeOut(1501);
+                    $('#set_time').fadeOut(1501);
+                    
+                    setTimeout(function(){
+                        $('#noon').fadeIn(1501);
+                        $('#start').fadeIn(1501);
+                        $('#alarm_set').fadeIn(1501);
+                    },1501);
+                });
+            })
+        </script>
+    </head>
+    <body>
+        <header>
+            <span id="application_name">CaptureAlarm</span>
+        </header>
+
+        <div class="wrap">
+            <div id="sky_item">
+                <div id="noon">
+                    <img src="image/sun.png" id="sun_img">
+                    <img src="image/cloud1.png" id="cloud1_img">
+                    <img src="image/cloud2.png" id="cloud2_img">
+                </div>
+                <div id="night">
+                    <img src="image/moon.png" id="moon_img">
+                    <img src="image/star.png" id="star1_img">
+                    <img src="image/star.png" id="star2_img">
+                </div>
+            </div>
+
+            <div id="clock_item">
+                <img src="image/digital_clock.png" id="clock_img">
+                <div id="time"></div>
+                <!--<div id="time_sec"></div>-->
+            </div>
+            <div class="alarm_item">
+                <span class="set_message">アラームは</span>
+                <input type="text" id="alarm_set">
+                <span id="set_time"></span>
+                <span class="set_message">に設定されています</span>
+            </div>
+            <div class="submit_item">
+                <button type="button" id="start">おやすみなさい</button>
+                <button type="button" id="cancel">やっぱり起きる</button>
+                <audio id="inn" src="sound/inn.mp3" type="audio/mp3">
+                <audio id="chicken" src="sound/chicken.mp3" type="audio/mp3">
+            </div>
+        </div>
+
+        <footer>
+            <div id="copyright">
+                ©︎2020 team Yakinikukuitai
+            </div>
+        </footer>
+    </body>
+</html>
