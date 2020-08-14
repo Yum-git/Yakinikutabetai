@@ -11,41 +11,72 @@
         <link rel="stylesheet" type="text/css" href="alarm.css">
 
         <script>
+            let timer;
+            function limitCounter() {
+                timer = setInterval(function() {
+                    let now = new Date();
+                    let year = now.getFullYear();
+                    let month = now.getMonth() + 1;
+                    let day = now.getDate();
+                    let set_time = $('#alarm_set').val();
+                    set_time = set_time.split(/[:\s]/);
+                    let set_hours = set_time[0];
+                    let set_minutes = set_time[1];
+                    let am_or_pm = set_time[2];
+                    
+                    let alarm_time = new Date(year + "/" + month + "/" + day + " " + set_hours + ":" + set_minutes + ":0");
+                    let between_time = (alarm_time - now);
+                    if (between_time > 0) {
+                        let h = Math.floor(between_time / 3600000);
+                        let h_ = h % 24;
+                        let m = Math.floor((between_time - h * 3600000) / 60000);
+                        let s = Math.round((between_time - h * 3600000 - m * 60000) / 1000);
+
+                        /*if ((h==0) && (m==0) && (s==0)) {
+                            clearInterval(timer);
+                        }*/
+                    }
+                    else{
+                        clearInterval(timer);
+                        $('#alarm').get(0).play();
+                    }
+                }, 1000);
+            }
             $(function(){
 
                 $('#night').hide();
                 $('#cancel').hide();
                 $('#set_time').hide();
 
-                let flag=true;
+                let flag = true;
 
                 //時刻カウント
                 setInterval(function(){
-                    let now=new Date();
-                    let hours=now.getHours();
-                    hours=('0'+hours).slice(-2);
-                    let minutes=now.getMinutes();
-                    minutes=('0'+minutes).slice(-2);
-                    let seconds=now.getSeconds();
-                    seconds=('0'+seconds).slice(-2);
+                    let now = new Date();
+                    let hours = now.getHours();
+                    hours = ('0'+hours).slice(-2);
+                    let minutes = now.getMinutes();
+                    minutes = ('0'+minutes).slice(-2);
+                    let seconds = now.getSeconds();
+                    seconds = ('0'+seconds).slice(-2);
                     
                     if(flag){
-                        $('#time').text(hours+'：'+minutes);
-                        flag=false;
+                        $('#time').text(hours + '：' + minutes);
+                        flag = false;
                     }
                     else{
-                        $('#time').text(hours+'　'+minutes);
-                        flag=true;
+                        $('#time').text(hours + '　' + minutes);
+                        flag = true;
                     }
                     //$('#time_sec').text(seconds);
-                },500);
+                }, 500);
 
 
                 /*$('*').on('touchmove touchend',function(){
                     $('.test').text($('#alarm').val());
                 })*/
                 $('#alarm_set').timeDropper({
-                    meridians: true,
+                    meridians: false,
                     setCurrentTime: false
                 });
 
@@ -57,21 +88,21 @@
                     $('#set_time').text(set_time);
 
                     $('body').animate({
-                        backgroundColor:'#000088'
+                        backgroundColor: '#000088'
                     },3000);
 
                     $('header').animate({
-                        backgroundColor:'#000033',
+                        backgroundColor: '#000033',
                         color:'#ffffff'
                     },3000);
 
                     $('footer').animate({
-                        backgroundColor:'#000033',
+                        backgroundColor: '#000033',
                         color:'#ffffff'
                     },3000);
 
                     $('.set_message').animate({
-                        color:'#ffffff'
+                        color: '#ffffff'
                     },3000);
 
                     $('#noon').fadeOut(1501);
@@ -83,31 +114,35 @@
                         $('#cancel').fadeIn(1501);
                         $('#set_time').fadeIn(1501);
                     },1501);
+
+                    limitCounter();
                 });
 
                 //キャンセル
                 $('#cancel').on('click',function(){
                     $('#chicken').get(0).play();
 
+                    clearInterval(timer);
+
                     /*let set_time=$('#alarm_set').val();
                     $('#set_time').text(set_time);*/
 
                     $('body').animate({
-                        backgroundColor:'#d6eaff'
+                        backgroundColor: '#d6eaff'
                     },3000);
 
                     $('header').animate({
-                        backgroundColor:'#4aa5ff',
-                        color:'#000000'
+                        backgroundColor: '#4aa5ff',
+                        color: '#000000'
                     },3000);
 
                     $('footer').animate({
-                        backgroundColor:'#4aa5ff',
-                        color:'#000000'
+                        backgroundColor: '#4aa5ff',
+                        color: '#000000'
                     },3000);
 
                     $('.set_message').animate({
-                        color:'#000000'
+                        color: '#000000'
                     },3000);
 
                     $('#night').fadeOut(1501);
@@ -156,8 +191,9 @@
             <div class="submit_item">
                 <button type="button" id="start">おやすみなさい</button>
                 <button type="button" id="cancel">やっぱり起きる</button>
-                <audio id="inn" src="sound/inn.mp3" type="audio/mp3">
-                <audio id="chicken" src="sound/chicken.mp3" type="audio/mp3">
+                <audio id="inn" src="sound/inn.mp3" type="audio/mp3"></audio>
+                <audio id="chicken" src="sound/chicken.mp3" type="audio/mp3"></audio>
+                <audio id="alarm" src="sound/alarm.mp3" type="audio/mp3"></audio>
             </div>
         </div>
 

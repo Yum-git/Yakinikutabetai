@@ -1,6 +1,6 @@
 /*@font-face{
     font-family: 'digital';
-    src: url('djb-get-digital/DJB_Get_Digital.ttf') format('truetype');
+    src: url('djb-get-digital/DJB_Get_Digital.ttf'); format('truetype');
 }*/
 
 body{
@@ -158,6 +158,7 @@ footer{
     font-size: 45px;
     /*font-family: 'digital';*/
     text-align: center;
+    font-family: 'digital';
 }
 .set_message{
     font-family: "M PLUS Rounded 1c", sans-serif;
