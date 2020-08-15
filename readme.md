@@ -19,4 +19,3 @@ jquery-color
 timedropper
 
 ## Use
-https://hackson-yakiniku-flask.herokuapp.com/alarm
