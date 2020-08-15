@@ -59,12 +59,12 @@
 		event.preventDefault();
 		
 		//canvasを捕捉
-		var canvasdata = document.getElementById("myCanvas");
+		let canvasdata = document.getElementById("myCanvas");
 		//canvasデータをbase64に変換
-		var data64 = canvasdata.toDataURL('image/png');
+		let data64 = canvasdata.toDataURL('image/png');
 		
 		//ajaxに送るformデータを初期化
-		var fData = new FormData();
+		let fData = new FormData();
 		//post形式で送るので「img:data」となるようにformデータに追記
 		fData.append('img', data64);
 		
