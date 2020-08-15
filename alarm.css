@@ -88,9 +88,6 @@ footer{
     max-width: 240px;
     max-height: 100px;
 }
-/*#time_item{
-    text-align: center;
-}*/
 #clock_img{
     text-align: center;
 }
@@ -148,17 +145,30 @@ footer{
     box-shadow: none;
     transform: translate3d(3px, 3px, 0);
 }
-
-#time{
+.now_time_item{
+    text-align: center;
+}
+.now_time{
     position: absolute;
-    width: 100%;
-    /*left: 410px;*/
     top: 10px;
+    width: 100%;
+}
+span[id^="time"]{
+    top: 0;
     color: #00FF00;
     font-size: 45px;
     /*font-family: 'digital';*/
     text-align: center;
-    font-family: 'digital';
+}
+#time_hours{
+    left: 0;
+}
+#time_minutes{
+    right: 0;
+}
+#time_colon{
+    top: 0;
+    left: 0;
 }
 .set_message{
     font-family: "M PLUS Rounded 1c", sans-serif;
@@ -171,16 +181,6 @@ footer{
     font-size: 40px;
     margin: 0 10px;
 }
-/*#time_sec{
-    position: absolute;
-    width: 100%;
-    left: 85px;
-    top: 40px;
-    color: #00FF00;
-    font-size: 25px;
-    text-align: center;
-    font-family: 'digital';
-}*/
 
 @media(max-width:767px){
     #application_name{
