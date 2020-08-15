@@ -35,13 +35,13 @@
                     
                     if(flag){
                         $('#time_hours').text(hours);
-                        $('#time_colon').text('：');
+                        $('#time_colon').text(':');
                         $('#time_minutes').text(minutes);
                         flag = false;
                     }
                     else{
                         $('#time_hours').text(hours);
-                        $('#time_colon').text('　');
+                        $('#time_colon').text('');
                         $('#time_minutes').text(minutes);
                         flag = true;
                     }
@@ -179,10 +179,14 @@
             <div id="clock_item">
                 <img src="image/digital_clock.png" id="clock_img">
                 <div class="now_time_item">
-                    <div class="now_time">
+                    <div class="now_time_num">
                         <span id="time_hours"></span>
-                        <span id="time_colon"></span>
                         <span id="time_minutes"></span>
+                    </div>
+                    <div class="now_time_colon">
+                        
+                        <span id="time_colon"></span>
+                        
                     </div>
                 </div>
             </div>

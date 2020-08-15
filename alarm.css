@@ -148,9 +148,9 @@ footer{
 .now_time_item{
     text-align: center;
 }
-.now_time{
+.now_time_colon,.now_time_num{
     position: absolute;
-    top: 10px;
+    top: 15px;
     width: 100%;
 }
 span[id^="time"]{
@@ -161,14 +161,18 @@ span[id^="time"]{
     text-align: center;
 }
 #time_hours{
-    left: 0;
+    position: relative;
+    top: 5px;
+    right: 20px;
+    /*width: auto;*/
 }
 #time_minutes{
-    right: 0;
+    position: relative;
+    top: 5px;
+    left: 20px;
+    /*width: auto;*/
 }
 #time_colon{
-    top: 0;
-    left: 0;
 }
 .set_message{
     font-family: "M PLUS Rounded 1c", sans-serif;
@@ -211,6 +215,12 @@ span[id^="time"]{
     }
     #cloud2_img,#star2_img{
         right: 120px;
+    }
+    #time_hours{
+        width: auto;
+    }
+    #time_minutes{
+        width: auto;
     }
 }
 
