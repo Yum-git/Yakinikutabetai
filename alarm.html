@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <!--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>-->
         <script src="jquery-3.4.1.min.js"></script>
         <script src="jquery-color-master/jquery.color.js"></script>
         <script src="timedropper-master/timedropper.js"></script>
@@ -107,7 +106,7 @@
                     $('#set_time').text(set_time_format);
                     
                     let alarm_time = new Date(year, month, day, set_hours, set_minutes, 0);
-                    if(am_or_pm == 'am'){
+                    if(am_or_pm == 'am' && (now.getHours() == 0 || now.getHours() >= 13)){
                         alarm_time.setDate(alarm_time.getDate()+1);
                     };
                     
