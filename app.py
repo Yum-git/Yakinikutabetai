@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_cors import CORS
 import random
 
@@ -7,20 +7,28 @@ from base64 import b64encode, b64decode
 import json
 import requests
 
+
+import os
+"""
+from dotenv import load_dotenv
+load_dotenv('.env') 
+APIKEY = os.environ.get("GCPAPIKEY")
+"""
+
+"""
 #Test用
 from PIL import Image
 from io import BytesIO
+"""
 
 api = Flask(__name__)
 CORS(api)
 
-#flasktest用ルーティング　hellowolrd
 @api.route('/')
 def index():
     return 'Hello world'
 
-#ランダムに言葉を返すルーティング　家電だよ
-@api.route('/randomword')
+@api.route('/randomword', methods=["GET", "POST"])
 def randomword():
     baseword = ['refrigerator', 
                 'microwave', 
@@ -34,12 +42,12 @@ def randomword():
     
     return returnstring
 
-#vision apiから引っ張ってきたデータを処理して返すルーティング
+
 @api.route('/object_auth', methods=["GET", "POST"])
 def auth_run():
     ENDPOINT_URL = 'https://vision.googleapis.com/v1/images:annotate'
     
-    api_key = ''#環境変数で設定しよう
+    api_key = os.environ['API_KEY']
     
     img_request = []
     
@@ -78,6 +86,16 @@ def auth_run():
         jsonbase.append(dic)
     
     return json.dumps({'response':jsonbase}, indent=4)
+
+@api.route('/alarm')
+def alarmhtml():
+    return render_template('alarm.html')
+
+
+@api.route('/camera')
+def camera():
+    return render_template('camera_cap.html')
+
 
 if __name__ == '__main__':
     api.run(host='0.0.0.0', port=4000, debug=True)
