@@ -170,8 +170,6 @@ span[id^="time"]{
     top: 5px;
     left: 10px;
 }
-#time_colon{
-}
 .set_message{
     font-family: "M PLUS Rounded 1c", sans-serif;
     font-weight: bold;
