@@ -14,10 +14,12 @@ from io import BytesIO
 api = Flask(__name__)
 CORS(api)
 
+#flasktest用ルーティング　hellowolrd
 @api.route('/')
 def index():
     return 'Hello world'
 
+#ランダムに言葉を返すルーティング　家電だよ
 @api.route('/randomword')
 def randomword():
     baseword = ['refrigerator', 
@@ -32,7 +34,7 @@ def randomword():
     
     return returnstring
 
-
+#vision apiから引っ張ってきたデータを処理して返すルーティング
 @api.route('/object_auth', methods=["GET", "POST"])
 def auth_run():
     ENDPOINT_URL = 'https://vision.googleapis.com/v1/images:annotate'
