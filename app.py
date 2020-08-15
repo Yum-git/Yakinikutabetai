@@ -30,11 +30,16 @@ def index():
 
 @api.route('/randomword', methods=["GET", "POST"])
 def randomword():
-    baseword = ['refrigerator', 
-                'microwave', 
-                'air conditioner', 
-                'washing machine', 
-                'telephone']
+    baseword = ['Refrigerator', 
+                'Microwave', 
+                'Television', 
+                'Gas stove', 
+                'rice cooker',
+                'Remote controller',
+                'Pen',
+                'Eraser',
+                'Book',
+                'Clock']
     
     len_number = len(baseword)
     number = int(random.random() * len_number)
