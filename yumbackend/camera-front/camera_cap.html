@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Camera</title>
+  <style>
+  canvas, video{
+    border: 1px solid gray;
+  }
+  
+ #camera{
+	width: 100%;
+	height: 100%;
+ }
+ #picture{
+	width: 100%;
+	height: 100%;
+ }
+  </style>
+  <script src="jquery-3.4.1.min.js"></script>
+</head>
+<body>
+
+<!--<h1>HTML5カメラ</h1>-->
+
+<input type="file" accept="image/*;capture=camera" id="cameraImage">
+<canvas id="myCanvas" width="240" height="320" style="border:1px solid black"></canvas>
+
+<form>
+  <input type="submit" value="送信">
+</form>
+
+<script>
+	document.getElementById("cameraImage").addEventListener("change", () => {
+    let Cobject = document.getElementById("myCanvas");
+    let context = Cobject.getContext("2d");
+
+    let reader = new FileReader();
+    reader.onload = () => {
+      let imgobj = new Image();
+      imgobj.src = reader.result;
+      imgobj.onload = () => {
+        context.drawImage(imgobj, 0, 0, Cobject.width, Cobject.height);
+      }
+
+    }
+
+    let imageFile = document.getElementById("cameraImage").files[0];
+    reader.readAsDataURL(imageFile);
+  }, false);
+
+  $('form').submit((event) => {
+    event.preventDefault();
+
+    var canvasdata = document.getElementById("myCanvas");
+    var data64 = canvasdata.toDataURL('image/png');
+
+    var fData = new FormData();
+    fData.append('img', data64);
+
+    $.ajax({
+      url: 'http://localhost:4000/object_auth',
+      type: 'POST',
+      data: fData,
+      contentType: false,
+        processData: false,
+        success: function(data, dataType) {
+          console.log('Success', data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log('Error : ' + errorThrown);
+        }
+    });
+  })
+</script>
+</body>
+</html>
