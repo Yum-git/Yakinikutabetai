@@ -17,7 +17,8 @@
 	height: 100%;
  }
   </style>
-  <script src="jquery-3.4.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <!--<script src="jquery-3.4.1.min.js"></script>-->
 </head>
 <body>
 
@@ -31,47 +32,59 @@
 </form>
 
 <script>
+	//選択されたファイルをcanvasに貼り付けている処理
 	document.getElementById("cameraImage").addEventListener("change", () => {
-    let Cobject = document.getElementById("myCanvas");
-    let context = Cobject.getContext("2d");
+		
+		//canvasを捕捉
+		let Cobject = document.getElementById("myCanvas");
+		let context = Cobject.getContext("2d");
+		
+		//filereader起動
+		let reader = new FileReader();
+		reader.onload = () => {
+			let imgobj = new Image();
+			imgobj.src = reader.result;
+			imgobj.onload = () => {
+				context.drawImage(imgobj, 0, 0, Cobject.width, Cobject.height);
+			}
+		}
 
-    let reader = new FileReader();
-    reader.onload = () => {
-      let imgobj = new Image();
-      imgobj.src = reader.result;
-      imgobj.onload = () => {
-        context.drawImage(imgobj, 0, 0, Cobject.width, Cobject.height);
-      }
-
-    }
-
-    let imageFile = document.getElementById("cameraImage").files[0];
-    reader.readAsDataURL(imageFile);
-  }, false);
-
-  $('form').submit((event) => {
-    event.preventDefault();
-
-    var canvasdata = document.getElementById("myCanvas");
-    var data64 = canvasdata.toDataURL('image/png');
-
-    var fData = new FormData();
-    fData.append('img', data64);
-
-    $.ajax({
-      url: 'http://localhost:4000/object_auth',
-      type: 'POST',
-      data: fData,
-      contentType: false,
-        processData: false,
-        success: function(data, dataType) {
-          console.log('Success', data);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-          console.log('Error : ' + errorThrown);
-        }
-    });
-  })
+		let imageFile = document.getElementById("cameraImage").files[0];
+		reader.readAsDataURL(imageFile);
+	}, false);
+	
+	
+	//submitが押されたときの処理　画像をbase64に直して送信する
+	$('form').submit((event) => {
+		event.preventDefault();
+		
+		//canvasを捕捉
+		let canvasdata = document.getElementById("myCanvas");
+		//canvasデータをbase64に変換
+		let data64 = canvasdata.toDataURL('image/png');
+		
+		//ajaxに送るformデータを初期化
+		let fData = new FormData();
+		//post形式で送るので「img:data」となるようにformデータに追記
+		fData.append('img', data64);
+		
+		//ajaxにて処理を送る
+		$.ajax({
+			url: 'https://hackson-api-20200816.herokuapp.com/object_auth',
+			type: 'POST',
+			data: fData,
+			contentType: false,
+			processData: false,
+			//正常な値が返ってきた時の処理
+			success: function(data, dataType) {
+				console.log('Success', data);
+			},
+			//異常な値を返した時の処理
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log('Error : ' + errorThrown);
+			}
+		});
+	})
 </script>
 </body>
 </html>
