@@ -1,7 +1,7 @@
-/*@font-face{
+@font-face{
     font-family: 'digital';
-    src: url('djb-get-digital/DJB_Get_Digital.ttf'); format('truetype');
-}*/
+    src: url('./font/font.ttf');
+}
 
 body{
     margin: 0;
@@ -156,21 +156,19 @@ footer{
 span[id^="time"]{
     top: 0;
     color: #00FF00;
-    font-size: 45px;
-    /*font-family: 'digital';*/
+    font-size: 50px;
+    font-family: 'digital';
     text-align: center;
 }
 #time_hours{
     position: relative;
     top: 5px;
-    right: 20px;
-    /*width: auto;*/
+    right: 10px;
 }
 #time_minutes{
     position: relative;
     top: 5px;
-    left: 20px;
-    /*width: auto;*/
+    left: 10px;
 }
 #time_colon{
 }
