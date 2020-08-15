@@ -107,7 +107,7 @@
                     $('#set_time').text(set_time_format);
                     
                     let alarm_time = new Date(year, month, day, set_hours, set_minutes, 0);
-                    if(am_or_pm == 'am'){
+                    if(am_or_pm == 'am' && (now.getHours() == 0 || now.getHours() >= 13)){
                         alarm_time.setDate(alarm_time.getDate()+1);
                     };
                     
@@ -184,9 +184,7 @@
                         <span id="time_minutes"></span>
                     </div>
                     <div class="now_time_colon">
-                        
                         <span id="time_colon"></span>
-                        
                     </div>
                 </div>
             </div>
