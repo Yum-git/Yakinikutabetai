@@ -9,45 +9,18 @@
         <script src="timedropper-master/timedropper.js"></script>
         <link rel="stylesheet" type="text/css" href="timedropper-master/timedropper.css">
         <link rel="stylesheet" type="text/css" href="alarm.css">
+        
 
         <script>
             let timer;
-            function limitCounter() {
-                timer = setInterval(function() {
-                    let now = new Date();
-                    let year = now.getFullYear();
-                    let month = now.getMonth() + 1;
-                    let day = now.getDate();
-                    let set_time = $('#alarm_set').val();
-                    set_time = set_time.split(/[:\s]/);
-                    let set_hours = set_time[0];
-                    let set_minutes = set_time[1];
-                    let am_or_pm = set_time[2];
-                    
-                    let alarm_time = new Date(year + "/" + month + "/" + day + " " + set_hours + ":" + set_minutes + ":0");
-                    let between_time = (alarm_time - now);
-                    if (between_time > 0) {
-                        let h = Math.floor(between_time / 3600000);
-                        let h_ = h % 24;
-                        let m = Math.floor((between_time - h * 3600000) / 60000);
-                        let s = Math.round((between_time - h * 3600000 - m * 60000) / 1000);
 
-                        /*if ((h==0) && (m==0) && (s==0)) {
-                            clearInterval(timer);
-                        }*/
-                    }
-                    else{
-                        clearInterval(timer);
-                        $('#alarm').get(0).play();
-                    }
-                }, 1000);
-            }
             $(function(){
 
                 $('#night').hide();
                 $('#cancel').hide();
                 $('#set_time').hide();
 
+                let timer;
                 let flag = true;
 
                 //時刻カウント
@@ -61,31 +34,31 @@
                     seconds = ('0'+seconds).slice(-2);
                     
                     if(flag){
-                        $('#time').text(hours + '：' + minutes);
+                        $('#time_hours').text(hours);
+                        $('#time_colon').text(':');
+                        $('#time_minutes').text(minutes);
                         flag = false;
                     }
                     else{
-                        $('#time').text(hours + '　' + minutes);
+                        $('#time_hours').text(hours);
+                        $('#time_colon').text('');
+                        $('#time_minutes').text(minutes);
                         flag = true;
                     }
-                    //$('#time_sec').text(seconds);
                 }, 500);
 
-
-                /*$('*').on('touchmove touchend',function(){
-                    $('.test').text($('#alarm').val());
-                })*/
                 $('#alarm_set').timeDropper({
                     meridians: false,
                     setCurrentTime: false
                 });
-
+                
                 //アラームセット完了
                 $('#start').on('click',function(){
                     $('#inn').get(0).play();
+                    
+                    let audio_alarm = document.getElementById('alarm');
+                    audio_alarm.load();
 
-                    let set_time=$('#alarm_set').val();
-                    $('#set_time').text(set_time);
 
                     $('body').animate({
                         backgroundColor: '#000088'
@@ -115,7 +88,34 @@
                         $('#set_time').fadeIn(1501);
                     },1501);
 
-                    limitCounter();
+                    let now = new Date();
+                    let year = now.getFullYear();
+                    let month = now.getMonth();
+                    let day = now.getDate();
+                    let set_time=$('#alarm_set').val();
+                    set_time = set_time.split(/[:\s]/);
+                    let set_hours = set_time[0];
+                    let set_minutes = set_time[1];
+                    let am_or_pm = set_time[2];
+                    if(am_or_pm == 'pm'){
+                        set_hours = parseInt(set_hours);
+                        set_hours += 12;
+                        set_hours = set_hours.toString();
+                    }
+                    let set_time_format = set_hours + ':' + set_minutes;
+
+                    $('#set_time').text(set_time_format);
+                    
+                    let alarm_time = new Date(year, month, day, set_hours, set_minutes, 0);
+                    if(am_or_pm == 'am'){
+                        alarm_time.setDate(alarm_time.getDate()+1);
+                    };
+                    
+                    let between_time = (alarm_time - now);
+
+                    timer = setTimeout(function(){
+                        audio_alarm.play();
+                    },between_time);
                 });
 
                 //キャンセル
@@ -123,9 +123,6 @@
                     $('#chicken').get(0).play();
 
                     clearInterval(timer);
-
-                    /*let set_time=$('#alarm_set').val();
-                    $('#set_time').text(set_time);*/
 
                     $('body').animate({
                         backgroundColor: '#d6eaff'
@@ -154,6 +151,8 @@
                         $('#start').fadeIn(1501);
                         $('#alarm_set').fadeIn(1501);
                     },1501);
+
+                    clearTimeout(timer);
                 });
             })
         </script>
@@ -179,8 +178,17 @@
 
             <div id="clock_item">
                 <img src="image/digital_clock.png" id="clock_img">
-                <div id="time"></div>
-                <!--<div id="time_sec"></div>-->
+                <div class="now_time_item">
+                    <div class="now_time_num">
+                        <span id="time_hours"></span>
+                        <span id="time_minutes"></span>
+                    </div>
+                    <div class="now_time_colon">
+                        
+                        <span id="time_colon"></span>
+                        
+                    </div>
+                </div>
             </div>
             <div class="alarm_item">
                 <span class="set_message">アラームは</span>
@@ -193,7 +201,7 @@
                 <button type="button" id="cancel">やっぱり起きる</button>
                 <audio id="inn" src="sound/inn.mp3" type="audio/mp3"></audio>
                 <audio id="chicken" src="sound/chicken.mp3" type="audio/mp3"></audio>
-                <audio id="alarm" src="sound/alarm.mp3" type="audio/mp3"></audio>
+                <audio id="alarm" src="sound/alarm.mp3" type="audio/mp3" loop></audio>
             </div>
         </div>
 
