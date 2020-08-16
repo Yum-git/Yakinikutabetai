@@ -260,7 +260,7 @@ $(function(){
             
             //ajaxにて処理を送る
             $.ajax({
-                url: 'https://hackson-api-20200816.herokuapp.com/object_auth',
+                url: './object_auth',
                 type: 'POST',
                 data: fData,
                 contentType: false,
