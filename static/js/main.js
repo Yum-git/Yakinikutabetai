@@ -129,12 +129,6 @@ $(function(){
             $('#cancel').fadeOut(501);
             $('#set_time').fadeOut(501);
 
-            /*setTimeout(function(){
-                $('#noon').fadeIn(501);
-                $('#start').fadeIn(501);
-                $('#alarm_set').fadeIn(501);
-            },1501);*/
-
             clearTimeout(timer);
             $('#sky_item').hide();
             $('#clock_item').hide();
@@ -293,6 +287,7 @@ $(function(){
                         audio_alarm.pause();
                         audio_alarm.currentTime = 0;
                         $('#result').text('認証成功！！');
+                        $('#levelup').get(0).play();
 
                         setTimeout(function(){
                             $('.camera').fadeOut(500);
