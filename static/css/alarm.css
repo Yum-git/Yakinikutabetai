@@ -1,6 +1,6 @@
 @font-face{
     font-family: 'digital';
-    src: url('../font/font.ttf');
+    src: url('static/font/font.ttf');
 }
 
 body{
@@ -106,7 +106,7 @@ footer{
     font-size: 25px;
     width: 110px;
 }
-.submit_item{
+.submit_item,.send_item{
     text-align: center;
     margin: 30px 0;
 }
@@ -118,7 +118,7 @@ footer{
     font-size: 24px;
     border: none;
     box-shadow: 2px 2px 4px gray;
-    max-width: 400px;
+    max-width: 350px;
     width: 100%;
     padding: 10px 0;
 }
@@ -163,14 +163,13 @@ span[id^="time"]{
 #time_hours{
     position: relative;
     top: 5px;
-    right: 10px;
+    right: 20px;
 }
 #time_minutes{
     position: relative;
     top: 5px;
-    left: 10px;
+    left: 20px;
 }
-
 .set_message{
     font-family: "M PLUS Rounded 1c", sans-serif;
     font-weight: bold;
@@ -181,6 +180,55 @@ span[id^="time"]{
     color: #ffffff;
     font-size: 40px;
     margin: 0 10px;
+}
+
+.result_item,.target_item_item,.select_file_item,.send_item,.change_target_item{
+    text-align: center;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: #000000;
+}
+.canvas_item{
+    text-align: center;
+}
+canvas, video{
+    border: 1px solid gray;
+}
+#myCanvas{
+    border: 1px solid black;
+}
+#camera{
+    width: 100%;
+    height: 100%;
+}
+#picture{
+    width: 100%;
+    height: 100%;
+}
+.target_item_item{
+    margin: 50px 0;
+}
+#change_target{
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #8ac4ff;
+    font-size: 18px;
+    border: none;
+    box-shadow: 2px 2px 4px gray;
+    max-width: 200px;
+    width: 100%;
+    padding: 10px 0;
+    margin: 20px 0;
+}
+#send{
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-size: 24px;
+    border: none;
 }
 
 @media(max-width:767px){

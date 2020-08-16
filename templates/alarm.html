@@ -3,16 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <!--外部js参照場所-->
         <script src="static/js/jquery-3.4.1.min.js"></script>
         <script src="static/js/jquery-color-master/jquery.color.js"></script>
         <script src="static/js/timedropper.js"></script>
-        <!--外部js参照場所-->
-
-        <!--内部js参照場所-->
         <script src="static/js/main.js"></script>
-        <!--内部js参照場所-->
-        
         <link rel="stylesheet" type="text/css" href="static/css/timedropper.css">
         <link rel="stylesheet" type="text/css" href="static/css/alarm.css">
     </head>
@@ -61,6 +55,44 @@
                 <audio id="alarm" src="static/sound/alarm.mp3" type="audio/mp3" loop></audio>
             </div>
         </div>
+
+
+
+
+        <div class="camera">
+            <div class="target_item_item">
+                「<span id="target_item_message"></span>」
+                を撮影してください
+            </div>
+            
+            <div class="canvas_item">
+                <canvas id="myCanvas" width="300" height="400"></canvas>
+            </div>
+
+            <div class="select_file_item">
+                <input type="file" accept="image/*;capture=camera" id="cameraImage">
+            </div>
+
+            <div class="change_target_item">
+                <button type="button" id="change_target">違うやつにして！</button>
+            </div>
+            
+            <form>
+                <div class="send_item">
+                    <input type="submit" value="送信" id="send">
+                </div>
+            </form>
+            
+            <div class="result_item">
+                <div id="result"></div>
+            </div>
+        </div>
+            
+        <script>
+            
+        </script>
+
+
 
         <footer>
             <div id="copyright">
