@@ -52,8 +52,7 @@ def randomword():
 def auth_run():
     ENDPOINT_URL = 'https://vision.googleapis.com/v1/images:annotate'
     
-    #api_key = os.environ['API_KEY']
-    api_key = 'AIzaSyAHZ0tNeDt-xrT0o0C4D2Ag-1GF36MdNmQ'
+    api_key = os.environ['API_KEY']
     
     img_request = []
     
