@@ -52,7 +52,8 @@ def randomword():
 def auth_run():
     ENDPOINT_URL = 'https://vision.googleapis.com/v1/images:annotate'
     
-    api_key = os.environ['API_KEY']
+    #api_key = os.environ['API_KEY']
+    api_key = 'AIzaSyAHZ0tNeDt-xrT0o0C4D2Ag-1GF36MdNmQ'
     
     img_request = []
     
@@ -73,24 +74,33 @@ def auth_run():
             'maxResults': 5
         }]
     })
-
     
-    response = requests.post(ENDPOINT_URL,
-                            data=json.dumps({"requests": img_request}).encode(),
-                            params={'key': api_key},
-                            headers={'Content-Type': 'application/json'})
+    try:
+        response = requests.post(ENDPOINT_URL,
+                                 data=json.dumps({"requests": img_request}).encode(),
+                                 params={'key': api_key},
+                                 headers={'Content-Type': 'application/json'})
     
-    data = response.json()
+        data = response.json()
     
-    jsonbase = []
-    for dataout in data['responses'][0]['labelAnnotations']:
-        dic = {}
-        dic['name'] = dataout['description']
-        dic['score'] = dataout['score']
+        jsonbase = []
+        for dataout in data['responses'][0]['labelAnnotations']:
+            dic = {}
+            dic['name'] = dataout['description']
+            dic['score'] = dataout['score']
         
-        jsonbase.append(dic)
+            jsonbase.append(dic)
     
-    return json.dumps({'response':jsonbase}, indent=4)
+        return json.dumps({'response':jsonbase}, indent=4)       
+    except Exception:
+        jsonbase = [{
+                'name': 'None',
+                'score': 0
+        }]
+        
+        return json.dumps({'response':jsonbase}, indent=4)  
+    
+
 
 @api.route('/alarm')
 def alarmhtml():
