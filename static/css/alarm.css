@@ -229,6 +229,9 @@ canvas, video{
     background-color: #ffffff;
     font-size: 24px;
     border: none;
+    max-width: 350px;
+    width: 100%;
+    padding: 10px 0;
 }
 
 @media(max-width:767px){
