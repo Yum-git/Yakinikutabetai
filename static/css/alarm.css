@@ -1,6 +1,6 @@
 @font-face{
     font-family: 'digital';
-    src: url('./font/font.ttf');
+    src: url('static/font/font.ttf');
 }
 
 body{
@@ -110,7 +110,7 @@ footer{
     text-align: center;
     margin: 30px 0;
 }
-#start,#send{
+#start{
     font-family: "M PLUS Rounded 1c", sans-serif;
     font-weight: bold;
     border-radius: 5px;
@@ -122,7 +122,7 @@ footer{
     width: 100%;
     padding: 10px 0;
 }
-#start:active,#send:active{
+#start:active{
     color: #000000;
     box-shadow: none;
     transform: translate3d(3px, 3px, 0);
@@ -189,18 +189,6 @@ span[id^="time"]{
     font-size: 24px;
     color: #000000;
 }
-/*#result{
-    font-family: "M PLUS Rounded 1c", sans-serif;
-    font-weight: bold;
-    border-radius: 5px;
-    color: #000000;
-}
-#target_item_message{
-    font-family: "M PLUS Rounded 1c", sans-serif;
-    font-weight: bold;
-    border-radius: 5px;
-    color: #000000;
-}*/
 .canvas_item{
     text-align: center;
 }
@@ -233,6 +221,14 @@ canvas, video{
     width: 100%;
     padding: 10px 0;
     margin: 20px 0;
+}
+#send{
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-size: 24px;
+    border: none;
 }
 
 @media(max-width:767px){
