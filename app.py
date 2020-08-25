@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 from flask_cors import CORS
 import random
 
@@ -26,7 +26,7 @@ CORS(api)
 
 @api.route('/')
 def index():
-    return 'Hello world'
+    return redirect(url_for('alarmhtml'))
 
 @api.route('/randomword', methods=["GET", "POST"])
 def randomword():
@@ -103,6 +103,6 @@ def camera():
 
 
 if __name__ == '__main__':
-    api.run(host='0.0.0.0', port=4000, debug=True)
+    api.run(host='0.0.0.0', port=4000)
 
 
